@@ -1,8 +1,23 @@
+require('dotenv').config();
+
+import express from "express";
+import dotenv from "dotenv";
+import { createClient } from '@supabase/supabase-js';
+
+dotenv.config();
+const app = express();
+
+const supabaseUrl = "https://cgwmwvvwqmebwuvcxskg.supabase.co";
+const CLIENTKEY = process.env.CLIENTKEY;
+const supabase = createClient(supabaseUrl, CLIENTKEY);
+
+app.use(express.json());
+
 // GET endpoint to retrieve data
-app.get('/api/data', async (req, res) => {
+app.get('/api/products', async (req, res) => {
     try {
       const { data, error } = await supabase
-        .from('data_table')
+        .from('products')
         .select('*');
       if (error) throw error;
       res.json(data);
@@ -12,11 +27,11 @@ app.get('/api/data', async (req, res) => {
   });
   
   // POST endpoint to create data
-  app.post('/api/data', async (req, res) => {
+  app.post('/api/products', async (req, res) => {
     try {
       const { body } = req;
       const { data, error } = await supabase
-        .from('data_table')
+        .from('products')
         .insert(body);
       if (error) throw error;
       res.status(201).json(data);
@@ -26,11 +41,11 @@ app.get('/api/data', async (req, res) => {
   });
   
   // DELETE endpoint to delete data
-  app.delete('/api/data/:id', async (req, res) => {
+  app.delete('/api/products/:id', async (req, res) => {
     try {
       const { id } = req.params;
       const { error } = await supabase
-        .from('data_table')
+        .from('products')
         .delete()
         .eq('id', id);
       if (error) throw error;
