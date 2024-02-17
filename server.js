@@ -5,6 +5,7 @@ import express from "express"
 const PORT = process.env.PORT || 3000;
 
 
+
 const supabaseKey = process.env.CLIENTKEY;
 
 
@@ -35,13 +36,18 @@ app.get('/api/products', async (req, res) => {
   
   // POST endpoint to create data
   app.post('/api/products', async (req, res) => {
+    const {name, description, price} = req.body;
     try {
-      const { body } = req;
       const { data, error } = await supabase
         .from('products')
-        .insert(body);
-      if (error) throw error;
-      res.status(201).json(data);
+        .insert({
+          name: "name", 
+          description: "description",
+          price: 10,
+        })
+        console.log(error);
+      
+      res.status(201).json({messagemessage: "hei"});
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
