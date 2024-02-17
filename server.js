@@ -17,7 +17,8 @@ const supabaseUrl = "https://cgwmwvvwqmebwuvcxskg.supabase.co";
 const CLIENTKEY = process.env.CLIENTKEY;
 const supabase = createClient(supabaseUrl, CLIENTKEY);
 
-
+app.get("/",(req, res) => {res.send("live")}
+) 
 
 // GET endpoint to retrieve data
 app.get('/api/products', async (req, res) => {
