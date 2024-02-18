@@ -16,6 +16,7 @@ async function getSpecificProduct(id) {
     //bruker find() for å itterere over arrayet for å returnere det første elementet i arrayet som passer id'en vi ser etter
     const specificProduct = data.find((product) => product.id === parseInt(id));
     if (specificProduct) {
+      //invoker funksjonen som displayer dataen til productet vi ser på(funksjonen er lengere nede)
       displaySingleProduct(specificProduct);
     } else {
       console.error("product not found");
