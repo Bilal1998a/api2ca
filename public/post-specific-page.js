@@ -40,3 +40,24 @@ function displaySingleProduct(data) {
     </div>
   `;
 }
+
+
+async function getSpecificPrescription(id) {
+  const url = `http://localhost:3001/api/prescription?id=${id}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    //bruker find() for å itterere over arrayet for å returnere det første elementet i arrayet som passer id'en vi ser etter
+    const specificPrescription = data.find((prescription) => prescription.id === parseInt(id));
+    if (specificPrescription) {
+      //invoker funksjonen som displayer dataen til productet vi ser på(funksjonen er lengere nede)
+      displaySingleProduct(specificPrescription);
+    } else {
+      console.error("product not found");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+//invoker funksjonen så den kjører
+getSpecificPrescription(id);
