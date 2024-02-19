@@ -1,13 +1,20 @@
 import "dotenv/config";
 import { createClient } from "@supabase/supabase-js";
 import express from "express";
+import cors from "cors";
+import { fileURLToPath } from "url";
+import path from "path";
+
 const PORT = process.env.PORT || 3000;
 
 const supabaseKey = process.env.CLIENTKEY;
 
 const app = express();
-app.use(express.static("public"));
-app.use(express.json());
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+app.use(express.json({ extend: true }));
+app.use(cors({ origin: "*" }));
+app.use(express.static(__dirname + "/public"));
+
 const supabaseUrl = "https://cgwmwvvwqmebwuvcxskg.supabase.co";
 const CLIENTKEY = process.env.CLIENTKEY;
 const supabase = createClient(supabaseUrl, CLIENTKEY);
@@ -16,7 +23,13 @@ app.get("/", (req, res) => {
   res.send("live");
 });
 
+app.get("/", (req, res) => {
+  console.log("server fikk post");
+  postData();
+});
+
 // GET endpoint to retrieve data
+
 app.get("/api/products", async (req, res) => {
   try {
     const { data, error } = await supabase.from("products").select("*");
@@ -28,23 +41,36 @@ app.get("/api/products", async (req, res) => {
 });
 
 // POST endpoint to create data
-app.post("/api/products", async (req, res) => {
-  const { name, description, price } = req.body;
-  try {
-    const { data, error } = await supabase.from("products").insert({
-      name: "name",
-      description: "description",
-      price: 10,
-    });
-    console.log(error);
 
-    res.status(201).json({ messagemessage: "hei" });
+app.post("/api/products", async (req, res) => {
+  console.log("you hit me");
+  const { name, description, price } = req.body;
+  console.log(name, description, price);
+
+  try {
+    const { data, error } = await supabase
+      .from("products")
+      .insert([
+        {
+          name: name,
+          description: description,
+          price: price,
+        },
+      ])
+      .select();
+
+    if (error) {
+      return res.status(500).json({ msg: "error when inserting" });
+    }
+    res.status(201).json({ msg: "product inserted", data });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 });
 
 // DELETE endpoint to delete data
+
 app.delete("/api/products/:id", async (req, res) => {
   try {
     const { id } = req.params;

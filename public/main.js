@@ -1,4 +1,5 @@
 const url = "http://localhost:3001/api/products";
+const postURL = "http://localhost:3001/";
 
 //fetch av data fra APIet for å få ut alle produkter
 async function getProducts() {
@@ -22,7 +23,7 @@ function displayProducts(data) {
   const ul = document.createElement("ul");
   console.log(data);
   //looper igjennom hvert eneste element vi får ut i data
-  data.forEach((product) => {
+  data.map((product) => {
     //lager button og li element som skal bli appendet til ul
     const btn = document.createElement("button");
     const li = document.createElement("li");
@@ -40,4 +41,46 @@ function displayProducts(data) {
   tableOne.appendChild(ul);
 }
 
-displayProducts();
+function createEvenetListensers() {
+  const addNewProductDiv = document.querySelector(".add-new-product");
+  const addNewProductBtnTableOne = document.querySelector(
+    ".add-new-item-table-one"
+  );
+  const addNewProductBtnTableTwo = document.querySelector(
+    ".add-new-item-table-two"
+  );
+
+  addNewProductBtnTableOne.addEventListener("click", async (e) => {
+    e.preventDefault;
+
+    const response = await addNewProduct();
+    console.log(response);
+  });
+}
+createEvenetListensers();
+
+async function addNewProduct() {
+  const productName = document.querySelector("#product-name");
+  const productDesc = document.querySelector("#product-desc");
+  const productPrice = document.querySelector("#product-price");
+  console.log("heihei");
+  console.log(productName.value);
+
+  console.log(productPrice.value);
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      name: productName.value,
+      description: productDesc.value,
+      price: productPrice.value,
+    }),
+    headers: {
+      "content-type": "application/json",
+      mode: "no-cors",
+    },
+  });
+  console.log(response);
+  const data = await response.json();
+  console.log(data, "this is data");
+  return await response.data;
+}

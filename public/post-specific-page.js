@@ -37,7 +37,6 @@ function displaySingleProduct(data) {
       <h1>Id: ${data.id}</h1>
       <h1>Name: ${data.name}. This item is a: ${data.description}</h1>
       <h1>price: ${data.price} kr</h1>
-
     </div>
   `;
 }
