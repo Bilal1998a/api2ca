@@ -19,3 +19,7 @@ This endpoint deletes a product by its ID. It expects the product ID to be passe
 ## Error Handling
 
 Each endpoint includes error handling to catch and handle any exceptions that may occur during database operations or processing of requests. If an error occurs, it responds with an appropriate HTTP status code (usually 500 for server errors) along with an error message. The endpoints for the other table are routed the same way with the same detail requirements.
+
+## Explination
+
+We decided to use node.js and express for our project. The reason we decided to use node.js is because we can use javascript not just on our web browser, but also on our computers. With node.js we used "express". Express is like a toolbox for building web apps with Node.js. It helps you organize your code and makes it easier to create web pages, handle data, and talk to databases. So keeping this in mind using node.js and express togheter let us build a web application efficiently using JavaScript for both our front and back end. 
