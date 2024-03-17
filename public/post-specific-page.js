@@ -9,7 +9,7 @@ const id = getSpecificProductId();
 
 //fetch men med id så vi får den spesifiserte itemen vi ser etter
 async function getSpecificProduct(id) {
-  const url = `http://localhost:3001/api/products?id=${id}`;
+  const url = `https://api2ca.onrender.com/api/products?id=${id}`;
   try {
     const res = await fetch(url);
     const data = await res.json();

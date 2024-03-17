@@ -1,6 +1,6 @@
-const url = "http://localhost:3001/api/products";
-const prescriptionURL = "http://localhost:3001/api/prescription";
-const postURL = "http://localhost:3001/";
+const url = "https://api2ca.onrender.com/api/products";
+const prescriptionURL = "https://api2ca.onrender.com/api/prescription";
+const postURL = "https://api2ca.onrender.com"
 
 //fetch av data fra APIet for å få ut alle produkter
 async function getProducts() {
