@@ -60,7 +60,7 @@ app.post("/api/products", async (req, res) => {
       .select();
 
     if (error) {
-      return res.status(500).json({ msg: "error when inserting" });
+      return res.status(500).json({ msg: error.message });
     }
     res.status(201).json({ msg: "product inserted", data });
   } catch (error) {
@@ -135,10 +135,6 @@ app.delete("/api/prescription/:id", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-
-
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

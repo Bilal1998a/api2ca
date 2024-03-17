@@ -1,6 +1,6 @@
 const url = "https://api2ca.onrender.com/api/products";
 const prescriptionURL = "https://api2ca.onrender.com/api/prescription";
-const postURL = "https://api2ca.onrender.com"
+const postURL = "https://api2ca.onrender.com/api/products";
 
 //fetch av data fra APIet for å få ut alle produkter
 async function getProducts() {
@@ -9,7 +9,6 @@ async function getProducts() {
     const data = await res.json();
     //invoker displayProducts her for å få hentet data inn på linje 16
     displayProducts(data);
-   
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -22,7 +21,7 @@ async function getPrescription() {
     const res = await fetch(prescriptionURL);
     const data = await res.json();
     //invoker displayProducts her for å få hentet data inn på linje 16
-    
+
     displayPrescription(data);
   } catch (error) {
     console.error("Error:", error);
@@ -30,7 +29,6 @@ async function getPrescription() {
 }
 //invoker getProducts funksjonen så den blir "aktivert"
 getPrescription();
-
 
 //funksjon for å displaye ALLE produkter som blir hentet ut av getProducts
 function displayProducts(data) {
@@ -58,8 +56,6 @@ function displayProducts(data) {
   tableOne.appendChild(ul);
 }
 
-
-
 function createEvenetListensers() {
   const addNewProductDiv = document.querySelector(".add-new-product");
   const addNewProductBtnTableOne = document.querySelector(
@@ -69,7 +65,6 @@ function createEvenetListensers() {
     ".add-new-item-table-two"
   );
 
-  
   addNewProductBtnTableOne.addEventListener("click", async (e) => {
     e.preventDefault;
 
@@ -78,13 +73,11 @@ function createEvenetListensers() {
   });
 
   addNewProductBtnTableTwo.addEventListener("click", async (e) => {
-e.preventDefault;
+    e.preventDefault;
 
-const response = await addNewPrescription();
-console.log(response);
-
+    const response = await addNewPrescription();
+    console.log(response);
   });
-
 }
 createEvenetListensers();
 
@@ -143,7 +136,7 @@ async function addNewPrescription() {
   const prescriptionName = document.querySelector("#prescription-name");
   const prescriptionDesc = document.querySelector("#prescription-desc");
   const prescriptionPrice = document.querySelector("#prescription-price");
-  console.log(prescriptionName.value)
+  console.log(prescriptionName.value);
 
   const response = await fetch(prescriptionURL, {
     method: "POST",
